@@ -18,11 +18,11 @@
 #include <vector>
 #include <algorithm>
 #include <cstring>
-#include <map>
 
 using namespace std;
 
 double dependency(int r, int c, int nCls, int cls[], double v[], vector<vector<double> >& data, int maxF[], int lF);
+int linear_search(int arr[], int n, int val);
 
 int main(int argc, char *argv[])
 {
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
     vector<double> tempData(c);
     vector< vector<double> > data(r, tempData);
     
-    for (i=0;i<r;++i) {
+    for (i=0; i<r; i++) {
         getline (tData, elmnt);
         pStart = 0;
         pEnd = elmnt.find(",");
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
             j++;
         }
         temp = elmnt.substr(pStart, 1);
-        data[i][j]=atof(temp.c_str());
+        data[i][j] = atof(temp.c_str());
     }
     
     //Finding number of classes in dataset
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
     clsTmp = data[0][c-1];
     cls[j] = 0;
     
-    for (i=1;i<r;++i) {
+    for (i=1; i<r; i++) {
         if (clsTmp != data[i][c-1]) {
             j++;
             cls[j] = i;
@@ -88,26 +88,19 @@ int main(int argc, char *argv[])
         }
     }
     
-    for (j=0;j<nCls-1;++j) {
-        cls[j] = cls[j+1];
-    }
+    for (j=0; j<nCls-1; j++) {cls[j] = cls[j+1];}
     cls[nCls-1] = r;
     
     //Calculating variance of the features
     double sum = 0.0;
     double mean = 0.0, v[c-1];
     
-    for (j=0;j<c-1;++j) {
+    for (j=0; j<c-1; j++) {
         sum = 0.0;
-        for (i=0;i<r;++i) {
-            sum += data[i][j];
-        }
+        for (i=0; i<r; i++) {sum += data[i][j];}
         mean = sum / r;
         v[j] = 0.0;
-        
-        for (i=0;i<r;i++) {
-            v[j] = v[j] + pow((data[i][j] - mean), 2.0);
-        }
+        for (i=0; i<r; i++) {v[j] = v[j] + pow((data[i][j] - mean), 2.0);}
         v[j] = pow(v[j]/(r - 1), 0.5);
     }
     
@@ -118,16 +111,10 @@ int main(int argc, char *argv[])
     vector<double> bdata(2);
     vector<vector<double> > biData(r, bdata);
     vector<vector<double> > fiData(r, bdata);
-    map <int, int> fMap;
-    pair <int, int> fPair;
     
     while(crit) {
-        for (f=0;f<c-1;++f) {
-            //Check to see if the current feature has already selected
-            fPair.first = f;
-            fPair.second = f;
-            if(fMap.insert(fPair).second == true) {continue;}
-            
+        for (f=0; f<c-1; f++) {
+            if(linear_search(selF, cnt+1, f) > 0) {continue;}
             selF[cnt-1] = f;
             if (cnt == 1) {
                 cDD = dependency(r, c, nCls, cls, v, data, selF, cnt);
@@ -168,7 +155,7 @@ int main(int argc, char *argv[])
                     
                     biF[0] = selF[b];
                     
-                    for (i=1;i<r;i++) {
+                    for (i=1; i<r; i++) {
                         if (clsTmp != biData[i][1]) {
                             k++;
                             clsF[k] = i;
@@ -216,6 +203,7 @@ int main(int argc, char *argv[])
     cout << endl;
     out_data << "]" << endl << "FM =" << maxDD << endl << endl; //add to file
     out_data.close();
+    
     return 0;
 }
 
@@ -288,4 +276,10 @@ double dependency(int r, int c, int nCls, int cls[], double v[], vector<vector<d
     
     out = out / r;
     return out;
+}
+
+int linear_search(int arr[], int n, int val)
+{
+    for(int i = 0; i < n; i++) {if (arr[i] == val) {return i;}}
+    return -1;
 }
