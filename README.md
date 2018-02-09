@@ -24,3 +24,6 @@ To compile this program follow these steps:
 
 ## Run
 To run the program use `./DGR {a dataset name}`
+
+## Note
+The classification outcome column of dataset should be sorted ascendingly
