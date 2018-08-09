@@ -5,7 +5,7 @@ date: '08/02/18'
 ---
 
 ## Use case
-To determine the most important features using the algorithm described in "A New Fuzzy-Rough Hybrid Merit to Feature Selection" by Javad Rahimipour Anaraki, Saeed Samet, Wolfgang Banzhaf, Mahdi Eftekhari
+To determine the most important features using the algorithm described in "A New Fuzzy-Rough Hybrid Merit to Feature Selection" by Javad Rahimipour Anaraki, Saeed Samet, Wolfgang Banzhaf and Mahdi Eftekhari
 
 Here is a link to the paper: https://link.springer.com/chapter/10.1007/978-3-662-53611-7_1
 
