@@ -12,7 +12,7 @@ Here is a link to the paper: https://link.springer.com/chapter/10.1007/978-3-662
 ## Compile
 To compile this program follow these steps:
 
-1. Be sure that you have the latest GCC/G++ compiler installed
+1. Be sure that you have the latest [GCC/G++ compiler](https://gcc.gnu.org/) compiler installed
 2. Use `g++ -o DQR DQR.cpp -std=c++11` to compile the program
 3. To improve its performance one can use `-O1` or `-O2` or `-O3`
 4. Ignore the following warning message:
